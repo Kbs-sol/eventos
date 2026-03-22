@@ -1,0 +1,38 @@
+---
+import config from '@eventos/config'
+
+const iconPaths: Record<string, string> = {
+  Sparkles: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+  Shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  Heart: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+  Star: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  Award: 'M8.21 13.89L7 23l5-3 5 3-1.21-9.12M15 7a3 3 0 11-6 0 3 3 0 016 0zm7 0A10 10 0 112 7a10 10 0 0120 0z',
+  Zap: 'M13 2L3 14h9l-1 10 10-12h-9l1-10z',
+}
+---
+
+<section class="section-padding relative overflow-hidden" id="why-us" style="background: var(--color-surface)">
+  <div class="container-narrow mx-auto">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Why Us</p>
+      <h2 class="section-title">{config.content.whyUsTitle}</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+      {config.content.whyUsPoints.map((point, i) => (
+        <div class="text-center group reveal" style={`--stagger: ${i + 1}`}>
+          {/* Icon container */}
+          <div class="w-20 h-20 rounded-3xl mx-auto mb-6 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rounded-2xl" style="background: linear-gradient(135deg, var(--color-primary-10), var(--color-accent)); background-size: 200% 200%;">
+            <svg class="w-9 h-9 transition-all duration-300" style="color: var(--color-primary)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[point.icon] || iconPaths.Sparkles} />
+            </svg>
+          </div>
+
+          <h3 class="heading-md mb-3">{point.title}</h3>
+          <p class="text-body max-w-xs mx-auto">{point.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

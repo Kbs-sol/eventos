@@ -1,0 +1,43 @@
+---
+// Team section — displays team members from DB, or empty state when none
+---
+
+<section class="section-padding" id="team" style="background: var(--color-bg)">
+  <div class="container-narrow mx-auto">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">The People</p>
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle mx-auto">
+        A passionate crew dedicated to making your events extraordinary.
+      </p>
+    </div>
+
+    {/* Placeholder team grid — populated from DB when Supabase is connected */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        { name: 'Team Member', role: 'Founder', initials: 'TM' },
+        { name: 'Team Member', role: 'Creative Director', initials: 'TM' },
+        { name: 'Team Member', role: 'Operations Lead', initials: 'TM' },
+      ].map((member, i) => (
+        <div class="card overflow-hidden group reveal" style={`--stagger: ${i + 1}`}>
+          {/* Photo placeholder */}
+          <div class="aspect-[3/4] relative overflow-hidden" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-primary))">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-4xl font-bold text-white/30" style="font-family: var(--font-display)">{member.initials}</span>
+            </div>
+            {/* Gradient overlay on hover */}
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(0deg, var(--color-secondary) 0%, transparent 50%)"></div>
+          </div>
+          <div class="p-6 text-center">
+            <h3 class="font-semibold text-lg mb-1" style="color: var(--color-text); font-family: var(--font-display)">{member.name}</h3>
+            <p class="text-sm" style="color: var(--color-text-muted)">{member.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="text-center text-sm mt-10" style="color: var(--color-text-muted)">
+      <em>Connect Supabase to manage team members from the admin panel.</em>
+    </p>
+  </div>
+</section>

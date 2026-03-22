@@ -1,0 +1,72 @@
+---
+import config from '@eventos/config'
+
+const services = config.services.filter(s => s.visible)
+
+const iconPaths: Record<string, string> = {
+  Briefcase: 'M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2',
+  Heart: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+  Users: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zm14 14v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+  Rocket: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09zM12 15l-3-3M22 2l-7 7M15 2h7v7',
+  Monitor: 'M2 3h20v14H2V3zm4 17h12m-6-3v3',
+  Sparkles: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+}
+---
+
+<section class="section-padding bg-[var(--color-bg)] relative overflow-hidden" id="services-snap">
+  <!-- Subtle bg pattern -->
+  <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(var(--color-text) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+  <div class="container-narrow mx-auto relative z-10">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">What We Do</p>
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle mx-auto">
+        From corporate events to dream weddings, we design and deliver experiences that leave lasting impressions.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {services.map((service, i) => (
+        <div
+          class="card group p-8 md:p-10 relative overflow-hidden reveal"
+          style={`--stagger: ${i}`}
+        >
+          {/* Decorative corner accent */}
+          <div class="absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(225deg, var(--color-primary-10) 0%, transparent 60%)"></div>
+
+          {/* Icon */}
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: var(--color-primary-10)">
+            <svg class="w-7 h-7 transition-colors" style="color: var(--color-primary)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[service.icon] || iconPaths.Sparkles} />
+            </svg>
+          </div>
+
+          {/* Content */}
+          <h3 class="heading-md mb-3 group-hover:text-[var(--color-primary)] transition-colors">{service.title}</h3>
+          <p class="text-body mb-6">{service.shortDesc}</p>
+
+          {/* Features list */}
+          <ul class="space-y-2.5">
+            {service.features.map((f) => (
+              <li class="flex items-start gap-3 text-sm" style="color: var(--color-text-muted)">
+                <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color: var(--color-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* Coming soon badge */}
+          {service.comingSoon && (
+            <span class="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full" style="background: var(--color-primary-10); color: var(--color-primary)">
+              Coming Soon
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+import config from '@eventos/config'
+
+export interface Props {
+  section: string
+}
+
+const { section } = Astro.props
+const variant = config.brand.layout.variant
+
+// Dynamically resolve components based on the variant
+let Component: any = null
+
+try {
+  if (variant === 'classic') {
+    const mod = await import('./variants/classic/index.ts')
+    Component = mod[section as keyof typeof mod]
+  } else if (variant === 'editorial') {
+    const mod = await import('./variants/editorial/index.ts')
+    Component = mod[section as keyof typeof mod]
+  } else if (variant === 'modern') {
+    const mod = await import('./variants/modern/index.ts')
+    Component = mod[section as keyof typeof mod]
+  } else if (variant === 'minimal') {
+    const mod = await import('./variants/minimal/index.ts')
+    Component = mod[section as keyof typeof mod]
+  }
+} catch {
+  // Fallback to classic if variant not found
+  try {
+    const mod = await import('./variants/classic/index.ts')
+    Component = mod[section as keyof typeof mod]
+  } catch {
+    Component = null
+  }
+}
+---
+
+{Component && <Component />}

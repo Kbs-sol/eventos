@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.wrangler/
+.astro/
+.env
+.env.*
+.dev.vars
+*.log
+.DS_Store
+.pm2/
+pids/
+*.pid
+*.seed
+*.pid.lock
+*.backup
+*.bak
+.pnpmrc_fix

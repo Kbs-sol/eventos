@@ -1,0 +1,20 @@
+{
+  "name": "@eventos/db",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./client": "./client.ts",
+    "./server": "./server.ts",
+    "./types": "./types.ts",
+    "./queries/*": "./queries/*.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "peerDependencies": {
+    "@eventos/config": "workspace:*"
+  }
+}

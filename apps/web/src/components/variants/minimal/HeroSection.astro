@@ -1,0 +1,29 @@
+---
+import config from '@eventos/config'
+---
+
+<!-- Minimal Hero: Maximum whitespace, typography is the design -->
+<section class="min-h-screen flex items-center justify-center px-4" style="background-color: var(--color-bg)">
+  <div class="max-w-4xl mx-auto text-center py-32">
+    <h1
+      class="font-bold mb-8 leading-none"
+      style={`font-family: var(--font-display); color: var(--color-text); font-size: clamp(40px, 5vw, 72px)`}
+    >
+      {config.content.heroHeadline}
+    </h1>
+
+    <hr class="w-16 mx-auto mb-8" style="border-color: var(--color-primary)" />
+
+    <p class="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style="color: var(--color-text-muted)">
+      {config.content.heroSubHeadline}
+    </p>
+
+    <a
+      href={config.content.heroCta2Href}
+      class="inline-flex items-center px-8 py-4 font-medium transition-all duration-200"
+      style={`background-color: var(--color-primary); color: var(--color-secondary); border-radius: var(--radius-button)`}
+    >
+      {config.content.heroCta2Label}
+    </a>
+  </div>
+</section>

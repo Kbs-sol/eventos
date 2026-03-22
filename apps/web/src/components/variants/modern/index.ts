@@ -1,0 +1,13 @@
+// Modern variant — strict 50/50 split screens, bold geometric
+export { default as hero }              from './HeroSection.astro'
+export { default as trustBar }          from '../classic/TrustBarSection.astro'
+export { default as servicesSnap }      from '../classic/ServicesSnapSection.astro'
+export { default as featuredPortfolio } from '../classic/FeaturedPortfolioSection.astro'
+export { default as whyChooseUs }       from '../classic/WhyUsSection.astro'
+export { default as testimonials }      from '../classic/TestimonialsSection.astro'
+export { default as videoShowreel }     from '../classic/VideoShowreelSection.astro'
+export { default as contactCta }        from '../classic/ContactCtaSection.astro'
+export { default as story }             from '../classic/StorySection.astro'
+export { default as missionVision }     from '../classic/MissionVisionSection.astro'
+export { default as team }              from '../classic/TeamSection.astro'
+export { default as stats }             from '../classic/StatsSection.astro'

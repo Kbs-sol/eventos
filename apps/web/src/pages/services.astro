@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import config from '@eventos/config'
+
+const iconPaths: Record<string, string> = {
+  Briefcase: 'M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2',
+  Heart: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+  Users: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zm14 14v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+  Rocket: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09zM12 15l-3-3M22 2l-7 7M15 2h7v7',
+  Monitor: 'M2 3h20v14H2V3zm4 17h12m-6-3v3',
+  Sparkles: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+}
+
+const allServices = config.services
+---
+
+<BaseLayout title="Our Services">
+  {/* Page hero */}
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden" style="background: var(--color-secondary)">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-1/2 w-96 h-96 rounded-full" style="background: radial-gradient(circle, var(--color-primary), transparent 70%); transform: translate(-50%, -30%);"></div>
+    </div>
+    <div class="container-narrow mx-auto px-4 md:px-8 relative z-10 text-center">
+      <p class="section-eyebrow text-white/60">What We Offer</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4" style="font-family: var(--font-display)">
+        Our Services
+      </h1>
+      <p class="text-lg text-white/60 max-w-xl mx-auto">
+        Comprehensive event management tailored to your vision.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-padding" style="background: var(--color-bg)">
+    <div class="container-narrow mx-auto">
+      <div class="space-y-20">
+        {allServices.filter(s => s.visible).map((service, i) => (
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center reveal ${i % 2 !== 0 ? 'lg:[direction:rtl] lg:[&>*]:direction-ltr' : ''}`} style={`--stagger: ${i}`}>
+            {/* Image */}
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-primary))">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-20 h-20 text-white/10" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[service.icon] || iconPaths.Sparkles} />
+                </svg>
+              </div>
+              {service.comingSoon && (
+                <div class="absolute top-4 right-4 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider" style="background: var(--color-primary); color: var(--color-secondary)">
+                  Coming Soon
+                </div>
+              )}
+            </div>
+
+            {/* Content */}
+            <div>
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: var(--color-primary-10)">
+                <svg class="w-6 h-6" style="color: var(--color-primary)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[service.icon] || iconPaths.Sparkles} />
+                </svg>
+              </div>
+              <h2 class="heading-lg mb-4">{service.title}</h2>
+              <p class="text-body mb-8">{service.shortDesc}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {service.features.map((f) => (
+                  <div class="flex items-center gap-3 text-sm" style="color: var(--color-text)">
+                    <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-8">
+                <a href="/contact" class="btn-primary group">
+                  Enquire Now
+                  <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

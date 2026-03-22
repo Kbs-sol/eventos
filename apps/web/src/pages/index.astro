@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SectionResolver from '../components/SectionResolver.astro'
+import config from '@eventos/config'
+import { getSectionDefaults } from '../lib/sections'
+
+// Get section visibility (defaults from config; DB override happens at runtime when connected)
+const vis = getSectionDefaults('home')
+---
+
+<BaseLayout>
+  {vis['home_hero']              && <SectionResolver section="hero" />}
+  {vis['home_trustBar']          && <SectionResolver section="trustBar" />}
+  {vis['home_servicesSnap']      && <SectionResolver section="servicesSnap" />}
+  {vis['home_featuredPortfolio'] && <SectionResolver section="featuredPortfolio" />}
+  {vis['home_whyChooseUs']       && <SectionResolver section="whyChooseUs" />}
+  {vis['home_testimonials']      && <SectionResolver section="testimonials" />}
+  {vis['home_videoShowreel']     && <SectionResolver section="videoShowreel" />}
+  {vis['home_contactCta']        && <SectionResolver section="contactCta" />}
+</BaseLayout>

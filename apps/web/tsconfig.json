@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@eventos/config": ["../../packages/config/index.ts"],
+      "@eventos/config/*": ["../../packages/config/*"],
+      "@eventos/db": ["../../packages/db/index.ts"],
+      "@eventos/db/*": ["../../packages/db/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro"]
+}

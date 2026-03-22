@@ -1,0 +1,55 @@
+---
+import config from '@eventos/config'
+---
+
+<section class="section-padding" id="story" style="background: var(--color-bg)">
+  <div class="container-narrow mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* Left: Image/decorative */}
+      <div class="relative reveal-left">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-primary))">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white/80">
+              <div class="text-6xl md:text-7xl font-bold mb-2" style="font-family: var(--font-display); color: var(--color-primary)">{config.company.founded}</div>
+              <p class="text-sm uppercase tracking-[0.2em] text-white/50">Founded</p>
+            </div>
+          </div>
+        </div>
+        {/* Floating accent card */}
+        <div class="absolute -bottom-6 -right-6 glass rounded-xl p-5 shadow-xl hidden md:block" style="background: var(--color-surface); border: 1px solid var(--color-border);">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: var(--color-primary-10)">
+              <svg class="w-5 h-5" style="color: var(--color-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold" style="color: var(--color-text)">Based in</p>
+              <p class="text-xs" style="color: var(--color-text-muted)">{config.company.city}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: Story text */}
+      <div class="reveal-right">
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-title mb-6">
+          How It All <span class="text-gradient">Began</span>
+        </h2>
+        <div class="text-body space-y-5">
+          <p>{config.content.aboutStory}</p>
+        </div>
+        <div class="mt-8">
+          <a href="/about" class="btn-outline group">
+            Learn More About Us
+            <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

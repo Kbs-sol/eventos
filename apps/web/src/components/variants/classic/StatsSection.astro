@@ -1,0 +1,26 @@
+---
+import config from '@eventos/config'
+import StatCounter from '../../shared/StatCounter.tsx'
+
+const visibleStats = config.stats.filter(s => s.visible)
+---
+
+<section class="relative overflow-hidden" id="stats" style="background: var(--color-secondary)">
+  <!-- Decorative -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 32px 32px;"></div>
+  </div>
+
+  <div class="section-padding-sm container-narrow mx-auto relative z-10">
+    <div class="grid grid-cols-2 md:grid-cols-{visibleStats.length > 3 ? '4' : String(visibleStats.length)} gap-8 md:gap-12">
+      {visibleStats.map((stat, i) => (
+        <div class="text-center reveal" style={`--stagger: ${i + 1}`}>
+          <StatCounter client:visible value={stat.value} suffix={stat.suffix} />
+          <p class="text-sm md:text-base text-white/60 mt-2 font-medium tracking-wide">
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

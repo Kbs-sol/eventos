@@ -1,0 +1,83 @@
+---
+import { generateCSSVars, getGoogleFontsUrl } from '../lib/theme'
+import config from '@eventos/config'
+import NavBar from '../components/shared/NavBar.astro'
+import Footer from '../components/shared/Footer.astro'
+import WhatsAppButton from '../components/shared/WhatsAppButton.astro'
+import '../styles/globals.css'
+
+export interface Props {
+  title?: string
+  description?: string
+  ogImage?: string
+}
+
+const {
+  title = config.seo.defaultTitle,
+  description = config.seo.description,
+  ogImage = config.assets.ogImage,
+} = Astro.props
+
+const pageTitle = title === config.seo.defaultTitle
+  ? title
+  : config.seo.titleTemplate.replace('%s', title)
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  {config.seo.twitterHandle && <meta name="twitter:site" content={config.seo.twitterHandle} />}
+  <meta name="keywords" content={config.seo.keywords.join(', ')} />
+  <meta name="theme-color" content={config.brand.colors.primary} />
+  <link rel="icon" href={config.assets.favicon} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href={getGoogleFontsUrl()} />
+  <style set:html={generateCSSVars()} />
+</head>
+<body class="bg-[var(--color-bg)] text-[var(--color-text)] antialiased" style={`font-family: var(--font-body)`}>
+  <NavBar />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+  {config.features.whatsapp.enabled && <WhatsAppButton />}
+
+  <!-- Scroll reveal observer -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Re-observe after Astro page transitions
+    document.addEventListener('astro:page-load', () => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => {
+        if (!el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

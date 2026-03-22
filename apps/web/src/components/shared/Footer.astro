@@ -1,0 +1,102 @@
+---
+import config from '@eventos/config'
+
+const currentYear = new Date().getFullYear()
+
+const socialLinks = [
+  { key: 'instagram', icon: 'M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z', url: config.social.instagram },
+  { key: 'facebook', icon: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z', url: config.social.facebook },
+  { key: 'linkedin', icon: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z', url: config.social.linkedin },
+  { key: 'youtube', icon: 'M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z M9.75 15.02V8.48l5.75 3.27-5.75 3.27z', url: config.social.youtube },
+  { key: 'twitter', icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z', url: config.social.twitter },
+].filter(s => s.url)
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Contact', href: '/contact' },
+]
+---
+
+<footer class="bg-[var(--color-secondary)] text-white">
+  <div class="container-narrow mx-auto section-padding">
+    <!-- Top Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <img src={config.assets.logoLight} alt={config.company.name} class="h-12 w-auto mb-4" />
+        <p class="text-white/70 text-sm leading-relaxed max-w-xs">
+          {config.company.description}
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider mb-4" style={`color: var(--color-primary)`}>
+          Quick Links
+        </h3>
+        <ul class="space-y-3">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-white/70 hover:text-white transition-colors text-sm">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider mb-4" style={`color: var(--color-primary)`}>
+          Get In Touch
+        </h3>
+        <div class="space-y-3 text-sm text-white/70">
+          <p>
+            <a href={`mailto:${config.company.email}`} class="hover:text-white transition-colors">
+              {config.company.email}
+            </a>
+          </p>
+          <p>
+            <a href={`tel:${config.company.phone.replace(/\s/g, '')}`} class="hover:text-white transition-colors">
+              {config.company.phone}
+            </a>
+          </p>
+          <p>{config.company.address}</p>
+          {config.company.officeHours && <p>{config.company.officeHours}</p>}
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-white/10" />
+
+    <!-- Bottom Section -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
+      <p class="text-white/50 text-sm">
+        &copy; {currentYear} {config.company.name}. All rights reserved.
+      </p>
+
+      <!-- Social Links -->
+      {socialLinks.length > 0 && (
+        <div class="flex items-center gap-4">
+          {socialLinks.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/50 hover:text-[var(--color-primary)] transition-colors"
+              aria-label={social.key}
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d={social.icon} />
+              </svg>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</footer>

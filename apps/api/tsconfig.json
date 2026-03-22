@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["@cloudflare/workers-types"],
+    "paths": {
+      "@eventos/config": ["../../packages/config/index.ts"],
+      "@eventos/config/*": ["../../packages/config/*"],
+      "@eventos/db": ["../../packages/db/index.ts"],
+      "@eventos/db/*": ["../../packages/db/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
