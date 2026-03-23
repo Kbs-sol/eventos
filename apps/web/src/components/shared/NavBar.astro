@@ -20,12 +20,12 @@ const isTransparent = config.brand.layout.navStyle === 'transparent'
     <!-- Logo -->
     <a href="/" class="group flex items-center gap-4 z-50">
       <div class="relative w-10 h-10 md:w-12 md:h-12 overflow-hidden bg-[var(--color-primary)] flex items-center justify-center">
-         <span class="text-[var(--color-secondary)] font-bold text-xl md:text-2xl" style="font-family: var(--font-display);">E</span>
+         <span class="text-[var(--color-secondary)] font-bold text-xl md:text-2xl" style="font-family: var(--font-display);">{config.company.name.charAt(0)}</span>
          <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
       </div>
       <div class="flex flex-col">
-          <span class="text-[var(--color-text)] font-bold text-sm tracking-[0.3em] uppercase leading-tight group-hover:text-[var(--color-primary)] transition-colors">EventOS</span>
-          <span class="text-[var(--color-text-muted)] text-[8px] uppercase tracking-[0.4em] leading-tight">Celebrations Co.</span>
+          <span class="text-[var(--color-text)] font-bold text-sm tracking-[0.3em] uppercase leading-tight group-hover:text-[var(--color-primary)] transition-colors">{config.company.name}</span>
+          <span class="text-[var(--color-text-muted)] text-[8px] uppercase tracking-[0.4em] leading-tight">{config.company.city}</span>
       </div>
     </a>
 

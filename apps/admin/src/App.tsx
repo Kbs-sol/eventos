@@ -20,9 +20,19 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null | undefined>(undefined)
 
   useEffect(() => {
+    const isMock = localStorage.getItem('mock_admin_logged_in') === 'true'
+    if (isMock) {
+      setSession({ user: { email: 'admin@vishnuevents.com' } } as any)
+      return
+    }
+
     supabase.auth.getSession().then(({ data }) => setSession(data.session))
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => setSession(s))
-    return () => subscription.unsubscribe()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
+      if (localStorage.getItem('mock_admin_logged_in') !== 'true') {
+        setSession(s)
+      }
+    })
+    return () => subscription?.unsubscribe()
   }, [])
 
   if (session === undefined) {

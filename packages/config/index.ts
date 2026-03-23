@@ -1,5 +1,9 @@
 // Single import point for all apps. NEVER import from brand.config.ts directly.
-import config from '../../brand.config'
+// @ts-ignore
+import _config from '../../brand.config'
+import type { BrandConfig } from './types'
+
+const config = _config as unknown as BrandConfig;
 
 export default config
 

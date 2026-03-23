@@ -12,8 +12,12 @@ export async function signIn(email: string, password: string) {
 }
 
 export async function signOut() {
-  const { error } = await supabase.auth.signOut()
-  if (error) throw error
+  localStorage.removeItem('mock_admin_logged_in')
+  // We can still call supabase signout in case a real auth session existed, but catch possible errors silently if it was pure mock
+  try {
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
+  } catch(e) { /* ignore for mocks */ }
 }
 
 export async function getSession() {

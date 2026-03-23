@@ -1,5 +1,8 @@
-import config from '../../brand.config'
-import type { ShadowLevel } from './types'
+// @ts-ignore
+import _config from '../../brand.config'
+import type { BrandConfig, ShadowLevel } from './types'
+
+const config = _config as unknown as BrandConfig
 
 const shadowMap: Record<ShadowLevel, string> = {
   none:   'none',

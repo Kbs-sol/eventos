@@ -49,7 +49,7 @@ export default function Settings() {
           <Card>
             <h3 className="text-base font-semibold text-gray-900 mb-4">Social Links</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {Object.entries(config.social).map(([key, value]) => (
+              {(Object.entries(config.social) as [string, string | undefined][]).map(([key, value]) => (
                 <div key={key} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
                   <span className="text-sm font-medium text-gray-600 capitalize w-24">{key}</span>
                   <span className="text-sm text-gray-900 flex-1 truncate">{value || <span className="text-gray-400 italic">Not set</span>}</span>
@@ -66,7 +66,7 @@ export default function Settings() {
           <Card>
             <h3 className="text-base font-semibold text-gray-900 mb-4">Color Palette</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {Object.entries(config.brand.colors).map(([name, color]) => (
+              {(Object.entries(config.brand.colors) as [string, string][]).map(([name, color]) => (
                 <div key={name} className="text-center">
                   <div className="w-full aspect-square rounded-xl mb-2 border border-gray-200" style={{ backgroundColor: color }} />
                   <p className="text-xs font-medium text-gray-700 capitalize">{name.replace(/([A-Z])/g, ' $1').trim()}</p>
@@ -79,7 +79,7 @@ export default function Settings() {
           <Card>
             <h3 className="text-base font-semibold text-gray-900 mb-4">Typography</h3>
             <div className="grid grid-cols-3 gap-6">
-              {Object.entries(config.brand.fonts).map(([type, font]) => font && (
+              {(Object.entries(config.brand.fonts) as [string, string][]).map(([type, font]) => font && (
                 <div key={type}>
                   <p className="text-xs font-medium text-gray-500 mb-1 capitalize">{type}</p>
                   <p className="text-xl" style={{ fontFamily: `'${font}', sans-serif` }}>{font}</p>

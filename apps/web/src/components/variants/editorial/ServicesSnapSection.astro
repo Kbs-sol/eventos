@@ -22,7 +22,7 @@ import config from '@eventos/config'
     </div>
 
     <!-- Services Grid: Asymmetrical and Vertical -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 pb-12 md:pb-32">
       {config.services.filter(s => s.visible).map((service, index) => (
         <div 
           class={`relative group flex flex-col ${index % 2 === 1 ? 'md:mt-24' : ''} reveal`}
