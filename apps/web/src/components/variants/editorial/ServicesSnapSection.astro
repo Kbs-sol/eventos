@@ -1,0 +1,87 @@
+---
+import config from '@eventos/config'
+---
+
+<section class="relative section-padding bg-[var(--color-bg)] text-[var(--color-text)] overflow-hidden" id="services">
+  <div class="container-wide relative z-10">
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row items-baseline justify-between mb-24 md:mb-32 reveal">
+      <div class="max-w-2xl">
+        <span class="text-[var(--color-primary)] text-xs md:text-sm font-bold uppercase tracking-[0.4em] block mb-6">
+          The Curated Collection
+        </span>
+        <h2 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-8" style="font-family: var(--font-display);">
+          Services Designed <span class="italic text-[var(--color-primary)]">Without Compromise</span>
+        </h2>
+      </div>
+      <div class="mt-8 md:mt-0 max-w-sm">
+         <p class="text-sm md:text-base text-[var(--color-text-muted)] leading-relaxed">
+           From monolithic corporate summits to the intimate rhythm of luxury weddings, we curate every detail as part of a larger masterpiece.
+         </p>
+      </div>
+    </div>
+
+    <!-- Services Grid: Asymmetrical and Vertical -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+      {config.services.filter(s => s.visible).map((service, index) => (
+        <div 
+          class={`relative group flex flex-col ${index % 2 === 1 ? 'md:mt-24' : ''} reveal`}
+          style={`transition-delay: ${index * 0.1}s;`}
+        >
+          <!-- Image Container: 4:5 vertical proportion -->
+          <div class="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-surface)] mb-8">
+            <img 
+              src={service.coverImage} 
+              alt={service.title}
+              class="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-110 opacity-80 group-hover:opacity-100"
+              onerror="this.src=`https://images.unsplash.com/photo-${index === 0 ? '1492684223066-81342ee5ff30' : index === 1 ? '1519167758481-83f550bb49b3' : '1505373877841-8d25f7d46678'}?q=80&w=2070&auto=format&fit=crop`"
+            />
+            <!-- Number Overlay -->
+            <div class="absolute top-6 left-6 text-[var(--color-primary)] text-4xl font-bold p-0 leading-none opacity-40 group-hover:opacity-100 transition-opacity" style="font-family: var(--font-display);">
+              0{index + 1}
+            </div>
+            <!-- Bottom Fade Overlay -->
+            <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--color-bg)] to-transparent opacity-80"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="relative px-2">
+            <div class="flex items-center gap-4 mb-4">
+               <div class="w-8 h-px bg-[var(--color-primary)]"></div>
+               <span class="text-[var(--color-primary)] text-[10px] uppercase tracking-[0.3em] font-bold">Category EX-0{index}</span>
+            </div>
+            
+            <h3 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors" style="font-family: var(--font-display);">
+              {service.title}
+            </h3>
+
+            <p class="text-sm text-[var(--color-text-muted)] mb-8 leading-relaxed max-w-[280px]">
+              {service.shortDesc}
+            </p>
+
+            <ul class="space-y-3 mb-10">
+              {service.features.map(feature => (
+                <li class="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--color-text)]/60">
+                  <div class="w-1 h-1 bg-[var(--color-primary)] rounded-full"></div>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <!-- Link -->
+            <a href={`/services#${service.id}`} class="inline-flex items-center gap-4 group/link">
+               <span class="text-[var(--color-text)] text-xs font-bold uppercase tracking-[0.2em] group-hover/link:text-[var(--color-primary)] transition-colors">Details</span>
+               <div class="relative w-12 h-px bg-[var(--color-text)]/20 overflow-hidden">
+                  <div class="absolute inset-0 bg-[var(--color-primary)] -translate-x-full group-hover/link:translate-x-0 transition-transform duration-500"></div>
+               </div>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Decorative background elements -->
+  <div class="absolute right-0 top-1/4 w-[40vw] h-[40vw] bg-[var(--color-primary-rgb)] opacity-[0.02] rounded-full blur-[120px]"></div>
+  <div class="absolute left-[-10vw] bottom-0 w-[50vw] h-[50vw] bg-[var(--color-accent)] opacity-[0.015] rounded-full blur-[150px]"></div>
+</section>

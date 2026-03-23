@@ -2,33 +2,114 @@
 import config from '@eventos/config'
 ---
 
-<!-- Editorial Hero: Image takes 60% with text overlapping -->
-<section class="relative min-h-screen flex items-end overflow-hidden">
-  <div class="absolute inset-0 bg-[var(--color-secondary)]">
-    <div class="absolute inset-0 opacity-20" style="background: linear-gradient(180deg, transparent 0%, var(--color-secondary) 100%)"></div>
-  </div>
-
-  <div class="relative z-10 w-full pb-20 px-4 md:px-8">
-    <div class="max-w-6xl mx-auto">
-      <h1
-        class="font-bold text-white mb-6 leading-none"
-        style={`font-family: var(--font-display); font-size: clamp(64px, 8vw, 120px)`}
+<section class="relative min-h-[100dvh] flex flex-col md:flex-row items-center justify-between overflow-hidden bg-[var(--color-bg)]" id="hero">
+  <!-- Left Side: Dramatic Typography -->
+  <div class="relative z-20 flex-1 px-6 md:px-12 lg:px-20 pt-32 pb-12 md:py-0">
+    <div class="max-w-xl">
+      <div class="inline-block py-1 mb-8 overflow-hidden">
+        <span class="text-[var(--color-primary)] text-xs md:text-sm font-bold uppercase tracking-[0.4em] block animate-slide-up" style="animation-delay: 0.1s;">
+          {config.company.city} &bull; Est. {config.company.founded}
+        </span>
+      </div>
+      
+      <h1 
+        class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.9] tracking-tighter mb-10 text-[var(--color-text)] reveal"
+        style="font-family: var(--font-display);"
       >
-        {config.content.heroHeadline}
+        {config.content.heroHeadline.split(' ').map((word, i) => (
+          <span class="block overflow-hidden">
+            <span class="inline-block animate-[slideUp_1.2s_cubic-bezier(0.19,1,0.22,1)_forwards]" style={`animation-delay: ${0.3 + i*0.1}s; transform: translateY(100%);`}>
+              {word}
+            </span>
+          </span>
+        ))}
       </h1>
 
-      <p class="text-xl md:text-2xl text-white/70 mb-10 max-w-2xl leading-relaxed">
+      <p class="text-lg md:text-xl text-[var(--color-text-muted)] mb-12 max-w-md leading-relaxed reveal" style="animation-delay: 0.8s;">
         {config.content.heroSubHeadline}
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a href={config.content.heroCta1Href} class="btn-primary px-8 py-4 text-base">
-          {config.content.heroCta1Label}
+      <div class="flex flex-wrap gap-8 reveal" style="animation-delay: 1s;">
+        <a href={config.content.heroCta1Href} class="group relative py-2 overflow-hidden">
+          <span class="text-[var(--color-primary)] font-bold text-sm uppercase tracking-[0.2em] relative z-10 transition-colors duration-500 group-hover:text-[var(--color-secondary)]">
+            {config.content.heroCta1Label}
+          </span>
+          <div class="absolute inset-0 bg-[var(--color-primary)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)]"></div>
         </a>
-        <a href={config.content.heroCta2Href} class="btn-outline px-8 py-4 text-base border-white/30 text-white hover:bg-white hover:text-[var(--color-secondary)]">
-          {config.content.heroCta2Label}
+        
+        <a href={config.content.heroCta2Href} class="group relative py-2 overflow-hidden border-b border-[var(--color-primary-20)] hover:border-[var(--color-primary)] transition-colors duration-500">
+           <span class="text-[var(--color-text)] font-semibold text-sm uppercase tracking-[0.1em]">
+            {config.content.heroCta2Label}
+          </span>
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Right Side: Cinematic Image + Asymmetry -->
+  <div class="relative flex-1 w-full h-[60vh] md:h-screen overflow-hidden">
+    <!-- Image with Parallax-ready container -->
+    <div class="absolute inset-0 md:inset-y-12 md:right-12 lg:right-20 bg-[var(--color-surface)] group overflow-hidden">
+        <img 
+            src="/brand/hero-editorial.jpg" 
+            alt="Luxury Event" 
+            class="w-full h-full object-cover scale-110 group-hover:scale-105 transition-transform duration-[2s] ease-out opacity-80"
+            onerror="this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop'"
+        />
+        <!-- Overlay for tonal depth -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-transparent opacity-60"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] to-transparent hidden md:block opacity-40"></div>
+    </div>
+
+    <!-- Floating Badge -->
+    <div class="absolute bottom-12 right-12 lg:right-32 z-30 hidden lg:block reveal-right" style="animation-delay: 1.2s;">
+        <div class="glass-dark p-8 border border-[var(--color-primary-10)]">
+             <div class="text-[var(--color-primary)] text-5xl font-bold mb-2" style="font-family: var(--font-display);">01</div>
+             <div class="text-white text-[10px] uppercase tracking-[0.3em] font-bold">The Gold Standard</div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Bottom Curator Tray -->
+  <div class="absolute bottom-0 left-0 w-full z-40 px-6 md:px-12 lg:px-20 py-8 hidden md:flex items-center justify-between border-t border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-md">
+     <div class="flex gap-12">
+        <div class="flex flex-col">
+            <span class="text-[var(--color-text-muted)] text-[9px] uppercase tracking-[0.2em] mb-1">Navigation</span>
+            <div class="flex gap-6">
+                {['Gallery', 'Services', 'Tome', 'Inquiry'].map(item => (
+                    <a href="#" class="text-[var(--color-text)] text-[11px] font-bold uppercase tracking-[0.15em] hover:text-[var(--color-primary)] transition-colors">{item}</a>
+                ))}
+            </div>
+        </div>
+     </div>
+
+     <div class="h-10 w-px bg-[var(--color-border)] mx-4"></div>
+
+     <div class="flex-1 flex justify-end items-center gap-12">
+         <div class="flex flex-col items-end">
+            <span class="text-[var(--color-text-muted)] text-[9px] uppercase tracking-[0.2em] mb-1">Direct Line</span>
+            <span class="text-[var(--color-text)] text-[11px] font-bold tracking-[0.1em]">{config.company.phone}</span>
+         </div>
+          <div class="flex flex-col items-end">
+            <span class="text-[var(--color-text-muted)] text-[9px] uppercase tracking-[0.2em] mb-1">Digital Presence</span>
+            <div class="flex gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] animate-pulse"></div>
+                <span class="text-[var(--color-text)] text-[11px] font-bold tracking-[0.1em]">Active Now</span>
+            </div>
+         </div>
+     </div>
+  </div>
 </section>
+
+<style>
+  .glass-dark {
+    background: rgba(19, 19, 19, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+</style>
