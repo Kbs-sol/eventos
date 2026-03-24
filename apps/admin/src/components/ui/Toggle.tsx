@@ -21,18 +21,19 @@ export function Toggle({ checked, onChange, label, description, disabled, size =
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
         className={`
-          relative inline-flex flex-shrink-0 ${trackSize} rounded-full
-          transition-colors duration-200 ease-in-out
+          relative inline-flex flex-shrink-0 ${trackSize} border-2 border-transparent rounded-full
+          transition-colors duration-200 ease-in-out items-center
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
           ${checked ? 'bg-indigo-600' : 'bg-gray-200 group-hover:bg-gray-300'}
+          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         `}
       >
         <span
           className={`
-            pointer-events-none inline-block ${thumbSize} rounded-full bg-white shadow-lg ring-0
-            transition-transform duration-200 ease-in-out
-            ${checked ? thumbTranslate : 'translate-x-0.5'}
-            mt-[3px]
+            pointer-events-none inline-block ${thumbSize} rounded-full bg-white shadow-sm ring-0
+            transition-all duration-200 ease-in-out
+            ${checked ? (size === 'sm' ? 'translate-x-[1rem]' : 'translate-x-[1.25rem]') : 'translate-x-0'}
+            ml-0.5
           `}
         />
       </button>

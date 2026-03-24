@@ -66,32 +66,33 @@ const isTransparent = config.brand.layout.navStyle === 'transparent'
     </button>
   </nav>
 
-  <!-- Mobile Drawer -->
-  <div
-    id="mobile-drawer"
-    class="fixed inset-0 bg-[var(--color-bg)] transform translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] lg:hidden z-40 flex flex-col px-12 pt-40"
-  >
-     <div class="text-[var(--color-primary-10)] text-9xl font-bold absolute top-20 right-0 pointer-events-none select-none" style="font-family: var(--font-display);">MENU</div>
-     
-     <div class="flex flex-col gap-8">
-      {navLinks.map((link, index) => (
-        <a
-          href={link.href}
-          class="text-4xl sm:text-5xl font-bold tracking-tighter text-[var(--color-text)] hover:text-[var(--color-primary)] transition-colors reveal"
-          style={`font-family: var(--font-display); transition-delay: ${index * 0.1}s;`}
-        >
-          {link.label}
-        </a>
-      ))}
-     </div>
-
-     <div class="mt-auto mb-20 flex flex-col gap-6">
-        <a href="/contact" class="text-[var(--color-primary)] font-bold uppercase tracking-[0.3em] text-sm">Start an Inquiry</a>
-        <div class="h-px w-20 bg-[var(--color-primary)]"></div>
-        <div class="text-[var(--color-text-muted)] text-[10px] tracking-[0.1em]">{config.company.phone}</div>
-     </div>
-  </div>
 </header>
+
+<!-- Mobile Drawer -->
+<div
+  id="mobile-drawer"
+  class="fixed inset-0 bg-[var(--color-bg)] transform translate-y-full transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] lg:hidden z-[60] flex flex-col px-12 pt-40 pointer-events-none invisible"
+>
+   <div class="text-[var(--color-primary-10)] text-9xl font-bold absolute top-20 right-0 pointer-events-none select-none" style="font-family: var(--font-display);">MENU</div>
+   
+   <div class="flex flex-col gap-8">
+    {navLinks.map((link, index) => (
+      <a
+        href={link.href}
+        class="text-4xl sm:text-5xl font-bold tracking-tighter text-[var(--color-text)] hover:text-[var(--color-primary)] transition-colors reveal"
+        style={`font-family: var(--font-display); transition-delay: ${index * 0.1}s;`}
+      >
+        {link.label}
+      </a>
+    ))}
+   </div>
+
+   <div class="mt-auto mb-20 flex flex-col gap-6">
+      <a href="/contact" class="text-[var(--color-primary)] font-bold uppercase tracking-[0.3em] text-sm">Start an Inquiry</a>
+      <div class="h-px w-20 bg-[var(--color-primary)]"></div>
+      <div class="text-[var(--color-text-muted)] text-[10px] tracking-[0.1em]">{config.company.phone}</div>
+   </div>
+</div>
 
 <script>
   const nav = document.getElementById('main-nav')
@@ -110,20 +111,34 @@ const isTransparent = config.brand.layout.navStyle === 'transparent'
   // Mobile menu toggle
   const menuBtn = document.getElementById('mobile-menu-btn')
   const drawer = document.getElementById('mobile-drawer')
+  const hamburgerLines = document.querySelectorAll('.hamburger-line')
   let isOpen = false
 
   menuBtn?.addEventListener('click', () => {
     isOpen = !isOpen
     if (isOpen) {
-      drawer?.classList.remove('translate-y-full')
+      drawer?.classList.remove('translate-y-full', 'pointer-events-none', 'invisible')
       drawer?.classList.add('translate-y-0')
       document.body.style.overflow = 'hidden'
       // Trigger reveal animations
       drawer?.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'))
+      // Animate hamburger to X (optional but good)
+      hamburgerLines[0]?.classList.add('rotate-45', 'translate-y-2')
+      hamburgerLines[1]?.classList.add('opacity-0')
+      hamburgerLines[2]?.classList.add('-rotate-45', '-translate-y-2')
     } else {
       drawer?.classList.remove('translate-y-0')
-      drawer?.classList.add('translate-y-full')
+      drawer?.classList.add('translate-y-full', 'pointer-events-none')
+      setTimeout(() => {
+        if (!isOpen) {
+          drawer?.classList.add('invisible')
+          // Reset reveal animations
+          drawer?.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'))
+        }
+      }, 700)
       document.body.style.overflow = ''
+      // Reset hamburger
+      hamburgerLines.forEach(l => l.classList.remove('rotate-45', 'translate-y-2', 'opacity-0', '-rotate-45', '-translate-y-2'))
     }
   })
 </script>

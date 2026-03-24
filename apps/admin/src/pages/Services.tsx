@@ -29,9 +29,21 @@ export default function Services() {
   }
 
   async function toggleService(serviceId: string, visible: boolean) {
+    // Optimistic update
+    setOverrides(prev => ({
+      ...prev,
+      [serviceId]: {
+        ...(prev[serviceId] || { service_id: serviceId, title: null, short_desc: null, sort_order: null }),
+        is_visible: visible
+      }
+    }))
+
     try {
       await apiPatch(`/admin/sections/services_${serviceId}`, { isVisible: visible })
-    } catch { /* API not connected */ }
+    } catch { 
+      // Rollback on error
+      loadOverrides()
+    }
   }
 
   return (
