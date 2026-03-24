@@ -13,7 +13,7 @@ const isTransparent = config.brand.layout.navStyle === 'transparent'
 
 <header
   id="main-nav"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] py-8"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] py-4 lg:py-8"
   data-nav-style={config.brand.layout.navStyle}
 >
   <nav class="container-wide mx-auto flex items-center justify-between px-6 md:px-12 lg:px-20">
@@ -98,14 +98,18 @@ const isTransparent = config.brand.layout.navStyle === 'transparent'
   
   window.addEventListener('scroll', () => {
     if (!nav) return
-    if (window.scrollY > 100) {
-      nav.classList.add('bg-[var(--color-bg)]/90', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-[var(--color-border)]')
-      nav.classList.remove('py-8')
+    const isMobile = window.innerWidth < 1024
+    const scrollThreshold = isMobile ? 50 : 100
+    
+    if (window.scrollY > scrollThreshold) {
+      nav.classList.add('bg-[var(--color-bg)]/90', 'backdrop-blur-xl', 'py-2', 'lg:py-4', 'border-b', 'border-[var(--color-border)]')
+      nav.classList.remove('py-4', 'lg:py-8')
     } else {
-      nav.classList.remove('bg-[var(--color-bg)]/90', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-[var(--color-border)]')
-      nav.classList.add('py-8')
+      nav.classList.remove('bg-[var(--color-bg)]/90', 'backdrop-blur-xl', 'py-2', 'lg:py-4', 'border-b', 'border-[var(--color-border)]')
+      nav.classList.add('py-4', 'lg:py-8')
     }
   })
+
 
   // Mobile menu toggle
   const menuBtn = document.getElementById('mobile-menu-btn')

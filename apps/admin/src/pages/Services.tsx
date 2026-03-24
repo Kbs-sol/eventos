@@ -29,17 +29,32 @@ export default function Services() {
   }
 
   async function toggleService(serviceId: string, visible: boolean) {
+    // Optimistic update
+    const prev = overrides[serviceId]
+    setOverrides(prevMap => ({
+      ...prevMap,
+      [serviceId]: { ...(prevMap[serviceId] || { service_id: serviceId, title: null, short_desc: null, sort_order: null }), is_visible: visible }
+    }))
+
     try {
       await apiPatch(`/admin/sections/services_${serviceId}`, { isVisible: visible })
-    } catch { /* API not connected */ }
+    } catch (err) {
+      // Revert on error
+      setOverrides(prevMap => ({
+        ...prevMap,
+        [serviceId]: prev
+      }))
+      console.error('Failed to toggle service:', err)
+    }
   }
+
 
   return (
     <div>
       <PageHeader title="Services" description="Manage service visibility and details. Services come from brand.config." />
 
       <div className="space-y-4">
-        {config.services.map((service, i) => {
+        {config.services.map((service: any, i: number) => {
           const override = overrides[service.id]
           const isVisible = override?.is_visible ?? service.visible
 
@@ -58,7 +73,7 @@ export default function Services() {
                   </div>
                   <p className="text-sm text-gray-500 mb-3">{override?.short_desc || service.shortDesc}</p>
                   <div className="flex flex-wrap gap-2">
-                    {service.features.map(f => (
+                    {service.features.map((f: string) => (
                       <span key={f} className="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">{f}</span>
                     ))}
                   </div>
@@ -74,6 +89,7 @@ export default function Services() {
             </Card>
           )
         })}
+
       </div>
 
       <div className="mt-8 p-4 rounded-xl bg-blue-50 border border-blue-200">

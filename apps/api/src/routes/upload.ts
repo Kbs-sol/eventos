@@ -78,3 +78,34 @@ uploadRoutes.post('/confirm', async (c) => {
   if (error) return c.json({ error: error.message }, 500)
   return c.json({ success: true, asset })
 })
+
+// POST /link — add an external media link
+const linkSchema = z.object({
+  url: z.string().url(),
+  filename: z.string().min(1),
+  mimeType: z.string().default('video/embed'),
+})
+
+uploadRoutes.post('/link', async (c) => {
+  const body = await c.req.json()
+  const parsed = linkSchema.safeParse(body)
+  if (!parsed.success) return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400)
+
+  const { url, filename, mimeType } = parsed.data
+  const supabase = createClient(c.env.SUPABASE_URL, c.env.SUPABASE_SERVICE_ROLE_KEY)
+  
+  const { data: asset, error } = await supabase
+    .from('media_assets')
+    .insert({
+      filename,
+      r2_key: url, // Store URL in r2_key for simplicity
+      mime_type: mimeType,
+      folder: 'external',
+    })
+    .select()
+    .single()
+
+  if (error) return c.json({ error: error.message }, 500)
+  return c.json({ success: true, asset })
+})
+
