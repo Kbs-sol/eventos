@@ -21,14 +21,14 @@ const config = {
 
   brand: {
     colors: {
-      primary: '#C9972B', // Gold
-      secondary: '#1B5E3B', // Deep Green
-      accent: '#B8295A', // Crimson
-      background: '#FAF6EF',
-      surface: '#F0EBE1',
-      text: '#2C2C2C',
-      textMuted: '#9E8E7A',
-      border: '#E8DECE',
+            primary: '#C9A46A', 
+            secondary: '#B68B4C', 
+            accent: '#8A7B92', 
+            background: '#E9E2F1',
+            surface: '#F4EFEA',
+            text: '#6B5A4E',
+            textMuted: '#9E8E7A',
+            border: '#DED5C9',
     },
     fonts: {
       display: 'Playfair Display',
